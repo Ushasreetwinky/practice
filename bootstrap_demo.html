@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+  	tr {
+   line-height: 25px;
+   min-height: 25px;
+   height: 55px;
+  }
+        
+        .agenda .agenda-date {
+            width: 170px;
+        }
+        
+        .agenda .agenda-date .dayofmonth {
+            width: 40px;
+            font-size: 16px;
+            line-height: 36px;
+            float: left;
+            text-align: right;
+            margin-right: 10px;
+        }
+        
+        .agenda .agenda-date .shortdate {
+            font-size: 0.75em;
+        }
+    </style>
+</head>
+  <h2>Calendar</h2>
+
+<body>
+<form action="http://localhost:5000/eventsupdates" method="POST">
+    <div class="col-md-8">
+  <label for="date">Select date:</label>
+  <select class="form-control" name="date" ="date">
+     <option>1</option> <option>2</option> <option>3</option> <option>4</option> <option>5</option> <option>6</option> <option>7</option> <option>8</option> <option>9</option> <option>10</option> <option>11</option> <option>12</option> <option>13</option> <option>14</option> <option>15</option> <option>16</option> <option>17</option> <option>18</option> <option>19</option> <option>20</option> <option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option>
+  </select>
+  <label for="month">Select month:</label>
+  <select class="form-control" name="month">
+     <option>1</option> <option>2</option> <option>3</option> <option>4</option> <option>5</option> <option>6</option> <option>7</option> <option>8</option> <option>9</option> <option>10</option> <option>11</option> <option>12</option>
+  </select>
+  <label>select year:</label>
+      <input type="number" class="form-control bfh-number col-xs-4" data-min="1900" data-max="2200" value="2016" name="year">
+    <br><br>
+    <label>Event details:</label>
+    <textarea class="form-control" rows="5" name="eventdetails"></textarea><br>
+    <input type='hidden' name='user1' value = "create">
+  <button type="submit" style="color:black">create event</button><br>
+  <input type='hidden' name='user2' value = "update">
+   <button type="submit" style="color:black">update event</button><br>
+   </div>
+   </form>
+   <br><br>
+  <div class="featurette" id="about">
+            <div class="container col-md-4 ">
+            <form action="http://localhost:5000/deleteevent" method = "POST">
+
+                        <table class="table table-condensed table-center table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Date : event</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {%for a in events%}
+                                <tr>
+                                <td>
+                                  {{a}}
+
+                                  <input type='hidden' name='eventdate' value = {{a}}>
+                                  <button type="submit" style="color:black">delete event</button><br>
+                                  </td>
+                                </tr>
+                                 {%endfor%}
+                              
+                            </tbody>
+                        </table>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </tbody>
+</div>
+</div>
+</form>
+</div>
+</div>
+</body>
+
+</div>
+</tr>
+</form>
+  <div class="container">
+  <p></p>
+  <table class="table table-bordered table-responsive table-condensed table-highlight table-hover">
+
+<thead>
+      <tr><th>
+      <form action="http://localhost:5000" method = "POST">
+           {%for a in month%}
+            {{a}}
+    {%endfor%}
+    <input type='hidden' name='user' value = "+1">
+    <button style="height:200px width=200px" type="submit" style="color:black"><</button>
+      <input type='hidden' name='user' value = "-1">
+    <button type="submit" style="color:black">></button>
+    </form>
+    </th>
+      </tr>
+      <tr>
+      <th>Monday</th>
+      <th>Tuesday</th>
+      <th>Wednesday</th>
+      <th>Thursday</th>
+      <th>Friday</th>
+      <th>Saturday</th>
+       <th>Sunday</th>
+      </tr>
+    </thead>
+
+    <tbody><br>
+      	{% for i in ab%}
+          <tr>
+      	     {% for a in i%}
+             <td>
+               <div class="inside">
+                    <div class="inside-date">{{a}}</div>
+                    {% for b in event%}
+                    <option value="{{ b.value}}">{{b.name}}
+                    <div class="inside-event btn btn-primary" title="Event text 1(shown on hover)">{{b.name}}</div></option>
+                    {%endfor%}
+                </div>
+             </td>
+             {%endfor%}
+          </tr>
+       {%endfor%}
+    </tbody>
+  </table>
+</div>
+
+   </div>
+
+</body>
+</html>
+
+
+<!--
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+//-->
