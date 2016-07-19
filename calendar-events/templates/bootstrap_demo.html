@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+  <html>
+  <header class="intro-header" style="background-repeat:no-repeat;   background-size:cover; background-image: url('/static/img/cal1.gif')">
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+      <title>Calendar-Events</title>
+       <!-- styling for button and rows height -->
+      <style>
+  	    tr{
+          line-height: 25px;
+          min-height: 25px;
+          height: 55px;
+        }
+        .btn-xlarge {
+          padding: 18px 28px;
+          font-size: 22px; 
+          line-height: normal;
+          -webkit-border-radius: 8px;
+          -moz-border-radius: 8px;
+          border-radius: 8px;
+        }
+      </style>
+    </head>
+  <h2>Calendar</h2>
+  <!-- body contains events and calendar of one month -->
+  <body >
+  <!-- form to enter event details -->
+    <form action="http://localhost:5000/eventsupdates" method="POST">
+      <div class="col-md-8">
+        <label for="date">Select date:</label>
+        <select class="form-control" name="date" ="date">
+          <option>1</option> <option>2</option> <option>3</option> <option>4</option> <option>5</option> <option>6</option> <option>7</option> <option>8</option> <option>9</option> <option>10</option> <option>11</option> <option>12</option> <option>13</option> <option>14</option> <option>15</option> <option>16</option> <option>17</option> <option>18</option> <option>19</option> <option>20</option> <option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option>
+        </select>
+        <label for="month">Select month:</label>
+        <select class="form-control" name="month">
+          <option>1</option> <option>2</option> <option>3</option> <option>4</option> <option>5</option> <option>6</option> <option>7</option> <option>8</option> <option>9</option> <option>10</option> <option>11</option> <option>12</option>
+        </select>
+        <label>select year:</label>
+        <input type="number" class="form-control bfh-number col-xs-4" data-min="1900" data-max="2200" value="2016" name="year">
+        <br><br>
+        <label>Event details:</label>
+        <textarea class="form-control" rows="5" name="eventdetails"></textarea><br>
+        <div class="col-xs-2 text-left">
+        <input type='hidden' name='user1' value = "create">
+        <button type="submit" style="background-color:#C7B598">create event</button><br></div>
+        <div class="col-xs-2 text-right">
+        <input type='hidden' name='user2' value = "update">
+        <button type="submit" style="background-color:#C7B598">update event</button><br></div>
+      </div>
+    </form>
+    <!--displays events in current month-->
+    <br><br>
+    <div class="featurette" id="about">
+      <div class="container col-md-4" style="background:#C7B598" >
+        <h2>Events in this month</h2>
+          <table class="table table-condensed table-center table-bordered table-highlight table-hover">
+            <thead>
+              <tr>
+                <th>Date : event</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!--for to iterate through events in this month-->
+              {%for a in events%}
+                <tr>
+                <form action="http://localhost:5000/deleteevent" method = "POST">
+                  <td>
+                    {{a}}
+                    <input type='hidden' name='eventdate' value = {{a}}>
+                    <button type="submit" style="background-color:#E5C7A2">delete event</button><br>
+                  </td>
+                </form>
+                </tr>
+              {%endfor%}
+            </tbody>
+          </table>
+      </div>
+    </div>
+    <p></p>
+    <!--calendar of one month along with events in it are displayed in green color-->
+    <div class="container">
+      <p></p>
+      <!--  this month name and buttons to change to next or previous month-->
+      <table class="table table-bordered table-responsive table-condensed table-highlight table-hover">
+        <thead>
+          <tr bgcolor="#C7B598">
+          <th>
+              <div class="text-left">
+                <form action="http://localhost:5000/monthchange" method = "POST">
+                  <input type='hidden' name='reduce' value = "-1">
+                  <button style="height:200px width=200px" type="submit" style="color:black"><</button>
+                  <!--displays current month-->
+                   {%for a in month%}
+                    {{a}}
+                  {%endfor%}
+                </form></div>
+                <div class="text-right">
+                <form action="http://localhost:5000/monthchange2" method = "POST">
+                  <input type='hidden' name='add' value = "+1">
+                  <button type="submit" style="color:black">></button>
+                </form>
+              </div>
+            </th>
+          </tr>
+          <tr bgcolor="#C7B598">
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Saturday</th>
+            <th>Sunday</th>
+          </tr>
+        </thead>
+        <tbody><br>
+          <!--displays calendar of one month-->
+        	{% for i in ab%}
+            <tr>
+            <!--traverses through on week-->
+          	  {% for a in i%}
+              <!--checking for events on particular day-->
+                {% if a[2]==' ':%}
+                  <td bgcolor="#8FE392">{{a}}</div></td>
+                {%else:%}
+                  <td>{{a}}</td>
+                {%endif%}
+              {%endfor%}
+            </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+    </div>
+  </body>
+  </header>
+</html>
