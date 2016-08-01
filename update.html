@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>d3 bargraph</title>
+ <script  src="http://d3js.org/d3.v3.min.js">
+</script>
+
+</head>
+<body style="margin:20px">
+<p>click me !</p>
+<svg>
+<script type="text/javascript">
+var data = [120, 140, 150, 180]
+var chart = d3.select('svg').selectAll('rect')
+  .data(data).enter()
+  .append('rect')
+  .attr('x', 0)
+  .attr('y', function(d,i) {return i * 30})
+  .attr('width', function(d) {return d})
+  .attr('height', 25)
+
+d3.select('svg').selectAll("text")
+  .data(data)
+  .enter()
+  .append("text")
+  .text(function(d) {return d})
+  .attr("y", function(d,i) {return i*30 + 15})
+  .attr("x", function(d) {return d - 20})
+  .attr("font-family", "sans-serif")
+  .attr("font-size", "10px")
+  .attr("fill", "white")
+
+
+d3.select("svg")
+  .on("click", function() {  // Event listener - later about that!
+    // create random data
+    data = [20,250,280,90]         // Custom function, we can write your own!
+    // update rect widths with enw data
+
+    d3.select('svg')
+      .selectAll("rect")     // select rects to be updated
+      .data(data)           // New data binded to rects
+      .transition().style("color", "red")
+      .duration(1000)
+      .ease("bounce")            
+      .attr('width', function(d) {return d}) // visual attribute to be updated\
+
+    d3.select('svg')
+      .selectAll("text")     // select text tags to be updated
+      .data(data)            // New data binded to elements
+      .transition()
+      .duration(1000)
+      .ease("bounce")
+      .attr('x', function(d) {return d-20}) // placed at new positions
+      .text(function(d) {return d})         // v
+  })
+</script>
+</svg>
+</body>
+</html>
