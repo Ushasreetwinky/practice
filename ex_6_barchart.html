@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Barchart from files</title>
+</head>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<body>
+<svg>
+	<script type="text/javascript">
+		var svg=d3.selectAll("body")
+				  .append("svg")
+				  .attr("height",1000)
+				  .attr("width",1000)
+				  .style("background","white")
+
+		var actualData
+
+		d3.csv("normalized.csv",function(data) {
+			actualData=data
+		})
+		var chart = d3.select('svg').selectAll('rect')
+					  .data(actualData).enter()
+					  .append('rect')
+					  .attr('x', 0)
+					  .attr('y', function(d,i) {return i * 30})
+					  .attr('width', function(d) {return d.length})
+					  .attr('height', 25)
+	</script>
+	</svg>
+</body>
+</html>
