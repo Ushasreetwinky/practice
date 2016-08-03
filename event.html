@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Event listener</title>
+</head>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<body>
+<svg>
+<script type="text/javascript">
+var data=[120,200,220,180]
+    var chart = d3.select('svg').selectAll('rect')
+  .data(data).enter()
+  .append('rect')
+  .attr('x', 0)
+  .attr('y', function(d,i) {return i * 30})
+  .attr('width', function(d) {return d})
+  .attr('height', 25)
+
+d3.select('svg').selectAll("text")
+  .data(data)
+  .enter()
+  .append("text")
+  .text(function(d) {return d})
+  .attr("y", function(d,i) {return i*30 + 15})
+  .attr("x", function(d) {return d - 20})
+  .attr("font-family", "sans-serif")
+  .attr("font-size", "10px")
+  .attr("fill", "white")
+
+chart.on("mouseover",function(d) {
+    console.log(d)
+    d3.select(this)
+    .attr("fill","rgb(0,"+d+",0)")
+})
+chart.on("mouseout",function(d) {
+    console.log(d)
+    d3.select(this)
+    .transition()
+    .duration(500)
+    .attr("fill","black")
+})
+</script>
+</svg>
+</body>
+</html>
