@@ -1,0 +1,16 @@
+<<!DOCTYPE html>
+<html>
+<head>
+	<title>form</title>
+</head>
+<body>
+	<form method="POST">
+		<input name="name">
+		<button type="submit">submit</button>
+		<input type="hidden" name="_xsrf" value="{{ handler.xsrf_token }}">
+	</form>
+	{% if handler.get_argument('name',None) %}
+	 <p>You have entered name {{handler.get_argument('name') }}</p>
+	 {% end %}
+</body>
+</html>
