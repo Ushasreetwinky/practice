@@ -1,0 +1,9 @@
+url:
+    template:
+        pattern: /                # The URL /page
+        handler: FileHandler            # displays a file
+        kwargs:
+            path: form.html             # named page.html
+            transform:
+              "*.html":                 # Apply the transform to all HTML files
+                function: template      # Render page.html as a template
